@@ -7,7 +7,7 @@ import { UsageData, CliOptions } from '../types';
 
 // CLI設定
 program
-  .version('0.1.2')
+  .version('0.2.0')
   .description('Display ccusage JSON output as terminal graphs')
   .option('-t, --type <type>', 'graph type (bar, line)', 'bar')
   .option('-p, --period <period>', 'time period to display (day, week, month)', 'day')
@@ -128,8 +128,20 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
   const proMax20 = 20;
   const proMax300 = 300;
   
-  // スケールを適切に設定（しきい値が見えるように）
-  const scale = Math.max(maxCost, proMax20 * 1.1); // 少なくとも$20ラインが見えるように
+  // スケールを適切に設定
+  // スケールを固定値（例：$50, $100, $500）に設定することで、しきい値の位置を一定に保つ
+  let scale: number;
+  if (maxCost <= 50) {
+    scale = 50;
+  } else if (maxCost <= 100) {
+    scale = 100;
+  } else if (maxCost <= 200) {
+    scale = 200;
+  } else if (maxCost <= 500) {
+    scale = 500;
+  } else {
+    scale = Math.ceil(maxCost / 100) * 100; // 100単位で切り上げ
+  }
   
   usageData.forEach(item => {
     const date = new Date(item.date);
@@ -140,36 +152,15 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
     const label = `${dateLabel}${crown}`.padEnd(10);
     const barLength = Math.round((item.cost / scale) * chartWidth);
     
-    // しきい値の位置を計算
-    const threshold20Pos = Math.round((proMax20 / scale) * chartWidth);
-    const threshold300Pos = Math.round((proMax300 / scale) * chartWidth);
-    
-    // バーを構築（しきい値ラインを含む）
+    // バーを構築
     let displayBar = '';
+    
+    // $20と$300のマーカー位置を計算
+    const marker20Pos = Math.round((proMax20 / scale) * chartWidth);
+    const marker300Pos = Math.round((proMax300 / scale) * chartWidth);
+    
     for (let i = 0; i < chartWidth; i++) {
-      // しきい値ラインをまず確認
-      if (options.threshold && i === threshold20Pos && scale >= proMax20) {
-        // $20しきい値ライン
-        if (i < barLength) {
-          // バーと重なる場合は、バーの色に応じた縦線を表示
-          if (item.cost >= proMax300) {
-            displayBar += chalk.red('┃');
-          } else if (item.cost >= proMax20) {
-            displayBar += chalk.yellow('┃');
-          } else {
-            displayBar += chalk.green('┃');
-          }
-        } else {
-          displayBar += chalk.yellow('│');
-        }
-      } else if (options.threshold && i === threshold300Pos && scale >= proMax300) {
-        // $300しきい値ライン
-        if (i < barLength) {
-          displayBar += chalk.red('┃');
-        } else {
-          displayBar += chalk.red('│');
-        }
-      } else if (i < barLength) {
+      if (i < barLength) {
         // バーの部分
         if (item.cost >= proMax300) {
           displayBar += chalk.red('█');
@@ -178,6 +169,10 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
         } else {
           displayBar += chalk.green('█');
         }
+      } else if (options.threshold && i === marker20Pos && scale >= proMax20) {
+        displayBar += chalk.dim.yellow('|');
+      } else if (options.threshold && i === marker300Pos && scale >= proMax300) {
+        displayBar += chalk.dim.red('|');
       } else {
         displayBar += ' ';
       }
@@ -191,10 +186,11 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
     console.log('\n' + chalk.dim('Legend:'));
     console.log(chalk.green('█') + ' < $20 (Less than Pro plan)');
     if (scale >= proMax20) {
-      console.log(chalk.yellow('█') + ' $20-$300 (Exceeds Pro plan) ' + chalk.yellow('│') + ' $20 line');
+      console.log(chalk.yellow('█') + ' $20-$300 (Exceeds Pro plan) ' + chalk.dim.yellow('|') + ' $20 threshold');
     }
     if (scale >= proMax300) {
-      console.log(chalk.red('█') + ' > $300 (Exceeds Pro Max plan) ' + chalk.red('│') + ' $300 line');
+      console.log(chalk.red('█') + ' > $300 (Exceeds Pro Max plan) ' + chalk.dim.red('|') + ' $300 threshold');
     }
+    console.log(chalk.dim(`Scale: $0 - $${scale}`));
   }
 }

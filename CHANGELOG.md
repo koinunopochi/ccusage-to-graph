@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-01-04
+
+### Changed
+- Completely redesigned threshold display system
+- Scale now uses fixed increments ($50, $100, $200, $500) for clearer visualization
+- Threshold markers appear as subtle lines in the empty space after bars
+- Removed overlapping threshold lines on bars for cleaner look
+
+### Fixed
+- Fixed issue where bars exceeding thresholds appeared before threshold markers
+- Fixed scale calculation to ensure threshold positions are always accurate
+
+### Added
+- Scale information in legend showing the current scale range
+
 ## [0.1.2] - 2025-01-04
 
 ### Fixed

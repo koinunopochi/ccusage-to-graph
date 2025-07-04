@@ -1,6 +1,6 @@
 {
   "name": "@koinunopochi/ccusage-to-graph",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Display ccusage JSON output as terminal graphs with Claude Pro/Pro Max threshold indicators",
   "main": "dist/index.js",
   "bin": {
