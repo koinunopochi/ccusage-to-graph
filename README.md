@@ -16,12 +16,12 @@ Display ccusage JSON output as terminal graphs with Claude Pro/Pro Max threshold
 ### Using npx (recommended)
 No installation required! Just use with npx:
 ```bash
-npx ccusage@latest --json | npx ccusage-to-graph@latest
+npx ccusage@latest --json | npx @koinunopochi/ccusage-to-graph@latest
 ```
 
 ### Global installation
 ```bash
-npm install -g ccusage-to-graph
+npm install -g @koinunopochi/ccusage-to-graph
 ```
 
 ### Local development
@@ -37,13 +37,13 @@ npm run build
 ### With npx (no installation needed)
 ```bash
 # Bar chart (default)
-npx ccusage@latest --json | npx ccusage-to-graph@latest
+npx ccusage@latest --json | npx @koinunopochi/ccusage-to-graph@latest
 
 # Line chart
-npx ccusage@latest --json | npx ccusage-to-graph@latest --type line
+npx ccusage@latest --json | npx @koinunopochi/ccusage-to-graph@latest --type line
 
 # Hide threshold lines
-npx ccusage@latest --json | npx ccusage-to-graph@latest --no-threshold
+npx ccusage@latest --json | npx @koinunopochi/ccusage-to-graph@latest --no-threshold
 ```
 
 ### With global installation
@@ -84,5 +84,5 @@ Issues and Pull Requests are welcome!
 ## Links
 
 - [GitHub Repository](https://github.com/koinunopochi/ccusage-to-graph)
-- [npm Package](https://www.npmjs.com/package/ccusage-to-graph)
+- [npm Package](https://www.npmjs.com/package/@koinunopochi/ccusage-to-graph)
 - [ccusage](https://www.npmjs.com/package/ccusage)
