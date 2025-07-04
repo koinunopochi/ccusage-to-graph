@@ -7,7 +7,7 @@ import { UsageData, CliOptions } from '../types';
 
 // CLI設定
 program
-  .version('0.1.0')
+  .version('0.1.1')
   .description('Display ccusage JSON output as terminal graphs')
   .option('-t, --type <type>', 'graph type (bar, line)', 'bar')
   .option('-p, --period <period>', 'time period to display (day, week, month)', 'day')
@@ -95,7 +95,9 @@ function displayGraph(data: UsageData, options: CliOptions) {
     console.log('\n' + chalk.dim('Dates:'));
     usageData.forEach((item, index) => {
       const date = new Date(item.date);
-      const label = `${date.getMonth() + 1}/${date.getDate()}`;
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const label = `${month}/${day}`;
       const crown = item.cost === maxCost ? ' 👑' : '';
       console.log(chalk.dim(`  [${index}] ${label}: $${item.cost.toFixed(2)}${crown}`));
     });
@@ -131,7 +133,9 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
   
   usageData.forEach(item => {
     const date = new Date(item.date);
-    const dateLabel = `${date.getMonth() + 1}/${date.getDate()}`;
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateLabel = `${month}/${day}`;
     const crown = item.cost === maxCost ? ' 👑' : '   ';
     const label = `${dateLabel}${crown}`.padEnd(10);
     const barLength = Math.round((item.cost / scale) * chartWidth);
