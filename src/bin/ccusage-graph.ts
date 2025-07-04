@@ -7,7 +7,7 @@ import { UsageData, CliOptions } from '../types';
 
 // CLI設定
 program
-  .version('0.2.0')
+  .version('0.2.1')
   .description('Display ccusage JSON output as terminal graphs')
   .option('-t, --type <type>', 'graph type (bar, line)', 'bar')
   .option('-p, --period <period>', 'time period to display (day, week, month)', 'day')
@@ -150,14 +150,15 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
     const dateLabel = `${month}/${day}`;
     const crown = item.cost === maxCost ? ' 👑' : '   ';
     const label = `${dateLabel}${crown}`.padEnd(10);
-    const barLength = Math.round((item.cost / scale) * chartWidth);
+    // バーの長さは切り上げて、わずかでも超えた場合は次の文字を表示
+    const barLength = Math.ceil((item.cost / scale) * chartWidth);
     
     // バーを構築
     let displayBar = '';
     
-    // $20と$300のマーカー位置を計算
-    const marker20Pos = Math.round((proMax20 / scale) * chartWidth);
-    const marker300Pos = Math.round((proMax300 / scale) * chartWidth);
+    // $20と$300のマーカー位置を計算（こちらは切り捨てて、確実に超えた時のみマーカーを移動）
+    const marker20Pos = Math.floor((proMax20 / scale) * chartWidth);
+    const marker300Pos = Math.floor((proMax300 / scale) * chartWidth);
     
     for (let i = 0; i < chartWidth; i++) {
       if (i < barLength) {
