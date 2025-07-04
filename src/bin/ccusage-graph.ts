@@ -7,7 +7,7 @@ import { UsageData, CliOptions } from '../types';
 
 // CLI設定
 program
-  .version('0.1.1')
+  .version('0.1.2')
   .description('Display ccusage JSON output as terminal graphs')
   .option('-t, --type <type>', 'graph type (bar, line)', 'bar')
   .option('-p, --period <period>', 'time period to display (day, week, month)', 'day')
@@ -147,7 +147,29 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
     // バーを構築（しきい値ラインを含む）
     let displayBar = '';
     for (let i = 0; i < chartWidth; i++) {
-      if (i < barLength) {
+      // しきい値ラインをまず確認
+      if (options.threshold && i === threshold20Pos && scale >= proMax20) {
+        // $20しきい値ライン
+        if (i < barLength) {
+          // バーと重なる場合は、バーの色に応じた縦線を表示
+          if (item.cost >= proMax300) {
+            displayBar += chalk.red('┃');
+          } else if (item.cost >= proMax20) {
+            displayBar += chalk.yellow('┃');
+          } else {
+            displayBar += chalk.green('┃');
+          }
+        } else {
+          displayBar += chalk.yellow('│');
+        }
+      } else if (options.threshold && i === threshold300Pos && scale >= proMax300) {
+        // $300しきい値ライン
+        if (i < barLength) {
+          displayBar += chalk.red('┃');
+        } else {
+          displayBar += chalk.red('│');
+        }
+      } else if (i < barLength) {
         // バーの部分
         if (item.cost >= proMax300) {
           displayBar += chalk.red('█');
@@ -156,12 +178,6 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
         } else {
           displayBar += chalk.green('█');
         }
-      } else if (options.threshold && i === threshold20Pos && scale >= proMax20) {
-        // $20しきい値ライン
-        displayBar += chalk.yellow('│');
-      } else if (options.threshold && i === threshold300Pos && scale >= proMax300) {
-        // $300しきい値ライン
-        displayBar += chalk.red('│');
       } else {
         displayBar += ' ';
       }
