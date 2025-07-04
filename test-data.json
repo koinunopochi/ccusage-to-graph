@@ -1,0 +1,38 @@
+{
+  "usage": [
+    {
+      "date": "2024-01-01",
+      "model": "claude-3-opus",
+      "tokens": 50000,
+      "cost": 2.5
+    },
+    {
+      "date": "2024-01-02", 
+      "model": "claude-3-opus",
+      "tokens": 100000,
+      "cost": 5.0
+    },
+    {
+      "date": "2024-01-03",
+      "model": "claude-3-opus",
+      "tokens": 150000,
+      "cost": 7.5
+    },
+    {
+      "date": "2024-01-04",
+      "model": "claude-3-opus",
+      "tokens": 80000,
+      "cost": 4.0
+    },
+    {
+      "date": "2024-01-05",
+      "model": "claude-3-opus",
+      "tokens": 120000,
+      "cost": 6.0
+    }
+  ],
+  "total": {
+    "tokens": 500000,
+    "cost": 25.0
+  }
+}

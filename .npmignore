@@ -1,0 +1,41 @@
+# Source files
+src/
+*.ts
+!*.d.ts
+
+# Config files
+tsconfig.json
+.gitignore
+
+# Test files
+test-*.json
+test-*.js
+
+# Development files
+node_modules/
+*.log
+.DS_Store
+
+# Git and CI
+.git/
+.github/
+.claude/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Redmine project link
+README.md
+
+# Keep only dist and necessary files
+!dist/
+!package.json
+!LICENSE
+!README.md
+!CHANGELOG.md
+
+# Exclude old bin directory
+bin/

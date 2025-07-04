@@ -1,0 +1,50 @@
+{
+  "name": "ccusage-to-graph",
+  "version": "0.1.0",
+  "description": "Display ccusage JSON output as terminal graphs with Claude Pro/Pro Max threshold indicators",
+  "main": "dist/index.js",
+  "bin": {
+    "ccusage-graph": "./dist/bin/ccusage-graph.js",
+    "ccusage-to-graph": "./dist/bin/ccusage-graph.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ccusage",
+    "claude",
+    "anthropic",
+    "graph",
+    "chart",
+    "terminal",
+    "cli",
+    "visualization",
+    "api-usage"
+  ],
+  "author": "koinunopochi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koinunopochi/ccusage-to-graph.git"
+  },
+  "bugs": {
+    "url": "https://github.com/koinunopochi/ccusage-to-graph/issues"
+  },
+  "homepage": "https://github.com/koinunopochi/ccusage-to-graph#readme",
+  "dependencies": {
+    "asciichart": "^1.5.25",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/asciichart": "^1.5.8",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
