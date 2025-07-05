@@ -5,7 +5,7 @@ Display ccusage JSON output as terminal graphs with Claude Pro/Pro Max threshold
 ## Features
 - 📊 Bar chart and line chart visualization
 - 🎨 Color-coded cost ranges (green/yellow/red)
-- 📏 Pro and Pro Max threshold lines ($20 and $300)
+- 📏 Pro and Pro Max threshold lines ($20 and $200)
 - 👑 Crown emoji marks the highest cost day
 - 🚀 Lightweight and fast using asciichart
 - 📝 TypeScript implementation
@@ -66,8 +66,8 @@ cat test-data-threshold.json | node dist/bin/ccusage-graph.js
 
 ## Color Coding
 - 🟢 Green: Under $20 (Less than Pro plan)
-- 🟡 Yellow: $20-$300 (Exceeds Pro plan)
-- 🔴 Red: Over $300 (Exceeds Pro Max plan)
+- 🟡 Yellow: $20-$200 (Exceeds Pro plan)
+- 🔴 Red: Over $200 (Exceeds Pro Max plan)
 
 ## License
 

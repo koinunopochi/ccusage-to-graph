@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2025-01-05
+
+### Fixed
+- **CRITICAL**: Fixed Pro Max threshold from $300 to $200
+- Updated all references to the correct $200 threshold in:
+  - Source code (threshold value and comparison logic)
+  - README documentation
+  - Test data
+  - Legend display
+
+### Changed
+- Color ranges now correctly show:
+  - Green: Under $20 (Less than Pro plan)
+  - Yellow: $20-$200 (Exceeds Pro plan)
+  - Red: Over $200 (Exceeds Pro Max plan)
+
 ## [0.2.1] - 2025-01-04
 
 ### Fixed

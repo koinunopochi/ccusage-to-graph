@@ -126,7 +126,7 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
   const maxCost = maxCostValue || Math.max(...usageData.map(item => item.cost));
   const chartWidth = 50;
   const proMax20 = 20;
-  const proMax300 = 300;
+  const proMax200 = 200;
   
   // スケールを適切に設定
   // スケールを固定値（例：$50, $100, $500）に設定することで、しきい値の位置を一定に保つ
@@ -156,14 +156,14 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
     // バーを構築
     let displayBar = '';
     
-    // $20と$300のマーカー位置を計算（こちらは切り捨てて、確実に超えた時のみマーカーを移動）
+    // $20と$200のマーカー位置を計算（こちらは切り捨てて、確実に超えた時のみマーカーを移動）
     const marker20Pos = Math.floor((proMax20 / scale) * chartWidth);
-    const marker300Pos = Math.floor((proMax300 / scale) * chartWidth);
+    const marker200Pos = Math.floor((proMax200 / scale) * chartWidth);
     
     for (let i = 0; i < chartWidth; i++) {
       if (i < barLength) {
         // バーの部分
-        if (item.cost >= proMax300) {
+        if (item.cost >= proMax200) {
           displayBar += chalk.red('█');
         } else if (item.cost >= proMax20) {
           displayBar += chalk.yellow('█');
@@ -172,7 +172,7 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
         }
       } else if (options.threshold && i === marker20Pos && scale >= proMax20) {
         displayBar += chalk.dim.yellow('|');
-      } else if (options.threshold && i === marker300Pos && scale >= proMax300) {
+      } else if (options.threshold && i === marker200Pos && scale >= proMax200) {
         displayBar += chalk.dim.red('|');
       } else {
         displayBar += ' ';
@@ -187,10 +187,10 @@ function displayBarChart(usageData: Array<{ date: string; cost: number }>, optio
     console.log('\n' + chalk.dim('Legend:'));
     console.log(chalk.green('█') + ' < $20 (Less than Pro plan)');
     if (scale >= proMax20) {
-      console.log(chalk.yellow('█') + ' $20-$300 (Exceeds Pro plan) ' + chalk.dim.yellow('|') + ' $20 threshold');
+      console.log(chalk.yellow('█') + ' $20-$200 (Exceeds Pro plan) ' + chalk.dim.yellow('|') + ' $20 threshold');
     }
-    if (scale >= proMax300) {
-      console.log(chalk.red('█') + ' > $300 (Exceeds Pro Max plan) ' + chalk.dim.red('|') + ' $300 threshold');
+    if (scale >= proMax200) {
+      console.log(chalk.red('█') + ' > $200 (Exceeds Pro Max plan) ' + chalk.dim.red('|') + ' $200 threshold');
     }
     console.log(chalk.dim(`Scale: $0 - $${scale}`));
   }

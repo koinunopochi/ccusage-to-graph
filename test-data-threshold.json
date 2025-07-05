@@ -39,12 +39,12 @@
     {
       "date": "2024-01-07",
       "model": "claude-3-opus",
-      "tokens": 7000000,
-      "cost": 350.0
+      "tokens": 5000000,
+      "cost": 250.0
     }
   ],
   "total": {
-    "tokens": 11100000,
-    "cost": 555.0
+    "tokens": 9100000,
+    "cost": 455.0
   }
 }
